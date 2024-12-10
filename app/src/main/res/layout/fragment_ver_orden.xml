@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="10dp"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/Manija"/>
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:id="@+id/EtiquetaIdO"
+        android:text="ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Manija"/>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/EtiquetaIdO"
+        android:text="Artículo"
+        android:id="@+id/EtiquetaNombreO"
+        app:layout_constraintTop_toBottomOf="@id/Manija"/>
+
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/EtiquetaNombreO"
+        app:layout_constraintTop_toBottomOf="@id/Manija"
+        android:text="Cnt."
+        android:id="@+id/EtiquetaCantidadO"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Manija"
+        android:textStyle="bold"
+        android:text="Subtotal"
+        android:id="@+id/EtiquetaSubtotal"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/EtiquetaIdO"
+        android:id="@+id/ArticulosOrden"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/BotonEnviarOrden"
+        app:layout_constraintTop_toBottomOf="@id/ArticulosOrden"
+        android:id="@+id/ImporteOrden"
+        android:textSize="30dp"
+        android:text="Total: $0"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ImporteOrden"
+        android:id="@+id/BotonEnviarOrden"
+        android:textSize="40dp"
+        android:text="Ordenar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
