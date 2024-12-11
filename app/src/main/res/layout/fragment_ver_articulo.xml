@@ -12,7 +12,14 @@
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/ManijaV"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/FotoVArticulo"
+        app:layout_constraintTop_toBottomOf="@id/ManijaV"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -20,7 +27,7 @@
         android:textStyle="bold"
         android:textSize="35dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FotoVArticulo"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/NombreVArticulo"/>
 

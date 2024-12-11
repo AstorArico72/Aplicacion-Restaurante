@@ -22,6 +22,7 @@ import retrofit2.Response;
 public class MainViewModel extends androidx.lifecycle.AndroidViewModel {
     private Context ContextoAplicacion;
     public static MutableLiveData <Integer> ImporteOrden;
+    @Nullable
     public static MutableLiveData <List<FilaOrden>> Orden;
     public static MutableLiveData <FilaOrden> FilaNueva;
 
@@ -69,10 +70,7 @@ public class MainViewModel extends androidx.lifecycle.AndroidViewModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.i ("RespuestaHTTP", response.toString());
                 if (response.code() == 200) {
-                    Toast.makeText(ContextoAplicacion, "Generando token de acceso.", Toast.LENGTH_LONG).show();
                     ClienteApi.GuardarToken("Bearer " + response.body(), ContextoAplicacion);
-                } else if (response.code() == 204) {
-                    Toast.makeText(ContextoAplicacion, "Ya existe un token de acceso válido.", Toast.LENGTH_LONG).show();
                 }
             }
             @Override

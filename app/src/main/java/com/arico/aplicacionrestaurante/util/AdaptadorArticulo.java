@@ -1,5 +1,7 @@
 package com.arico.aplicacionrestaurante.util;
 
+import static com.arico.aplicacionrestaurante.util.ClienteApi.UrlBase;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-import java.util.Objects;
-
+import com.bumptech.glide.*;
 import com.arico.aplicacionrestaurante.R;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
 import com.arico.aplicacionrestaurante.ui.VerArticuloFragment;
@@ -55,6 +55,7 @@ public class AdaptadorArticulo extends RecyclerView.Adapter <AdaptadorArticulo.H
             } else {
                 holder.AtributosArticulo.append("");
             }
+            Glide.with(ContextoAplicacion).load (UrlBase + item.getUriFoto()).into (holder.FotoArticulo);
             holder.TarjetaArticulo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -83,7 +84,7 @@ public class AdaptadorArticulo extends RecyclerView.Adapter <AdaptadorArticulo.H
         TextView NombreArticulo;
         TextView AtributosArticulo;
         TextView PrecioArticulo;
-        //ImageView FotoArticulo;
+        ImageView FotoArticulo;
         CardView TarjetaArticulo;
 
         public Holder(@NonNull View itemView) {
@@ -91,7 +92,7 @@ public class AdaptadorArticulo extends RecyclerView.Adapter <AdaptadorArticulo.H
             this.NombreArticulo = itemView.findViewById(R.id.NombreArticulo);
             this.AtributosArticulo = itemView.findViewById(R.id.AtributosArticulo);
             this.PrecioArticulo = itemView.findViewById(R.id.PrecioArticulo);
-            //this.FotoArticulo = itemView.findViewById(R.id.FotoArticulo);
+            this.FotoArticulo = itemView.findViewById(R.id.FotoArticulo);
             this.TarjetaArticulo = itemView.findViewById(R.id.TarjetaArticulo);
         }
     }

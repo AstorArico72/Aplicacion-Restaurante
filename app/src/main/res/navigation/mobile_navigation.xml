@@ -22,4 +22,9 @@
         android:name="com.arico.aplicacionrestaurante.ui.VerOrdenFragment"
         tools:layout="@layout/fragment_ver_orden"/>
 
+    <fragment
+        android:id="@+id/nav_detalles_orden"
+        android:name="com.arico.aplicacionrestaurante.ui.FragmentDetallesOrden"
+        tools:layout="@layout/fragment_detalles_orden"/>
+
 </navigation>

@@ -14,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arico.aplicacionrestaurante.R;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
 import com.arico.aplicacionrestaurante.databinding.ActivityMainBinding;
 import com.arico.aplicacionrestaurante.modelos.FilaOrden;
@@ -38,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
         this.binder = ActivityMainBinding.inflate(getLayoutInflater());
         this.ContextoAplicacion = getApplicationContext();
         SolicitarPermisos();
+        ViewModel.Conectarse();
         CargarMenu(null);
+        if (MainViewModel.LeerOrden().getValue() != null && MainViewModel.getNuevaFila().getValue() != null) {
+            MainViewModel.LeerOrden().getValue().clear();
+            MainViewModel.getNuevaFila().setValue(null);
+        }
+        MainViewModel.ConseguirImporte().setValue(0);
 
         ViewModel.ConseguirArticulos().observe(this, new Observer<List<Artículo>>() {
             @Override
@@ -54,13 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 if (orden == null) {
                     orden = new ArrayList<>();
                 }
-                orden.add(filaOrden);
-                MainViewModel.LeerOrden().postValue(orden);
-                Toast.makeText(ContextoAplicacion, "Añadido a la orden.", Toast.LENGTH_SHORT).show();
+                if (filaOrden == null) {
+                    MainViewModel.LeerOrden().getValue().clear();
+                } else {
+                    orden.add(filaOrden);
+                    MainViewModel.LeerOrden().postValue(orden);
+                    Toast.makeText(ContextoAplicacion, "Añadido a la orden.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        ViewModel.Conectarse();
         ViewModel.ConseguirMenu();
 
         binder.BotonMostrarOrden.setOnClickListener(new View.OnClickListener() {

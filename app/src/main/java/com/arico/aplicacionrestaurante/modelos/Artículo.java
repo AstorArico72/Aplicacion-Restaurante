@@ -7,6 +7,16 @@ public class Artículo implements java.io.Serializable {
     private int id; //Sin signo - no admite valores negativos.
     private String nombre;
     private int precio; //Sin signo - no admite valores negativos.
+    private String imagen;
+
+    public String getUriFoto() {
+        return imagen;
+    }
+
+    public void setUriFoto(String uriFoto) {
+        this.imagen = uriFoto;
+    }
+
     private List<String> atributos;
 
     public List<String> getAtributos() {

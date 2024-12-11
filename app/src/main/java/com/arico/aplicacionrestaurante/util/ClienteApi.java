@@ -32,6 +32,8 @@ import retrofit2.http.Path;
 
 public class ClienteApi {
 
+    public static final String UrlBase = "http://192.168.1.150:5179";
+
     /**
      * Ésto crea una interfaz Retrofit para poder hacer pedidos al API.
      *

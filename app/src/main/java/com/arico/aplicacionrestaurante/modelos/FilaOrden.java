@@ -2,7 +2,7 @@ package com.arico.aplicacionrestaurante.modelos;
 
 import androidx.annotation.Nullable;
 
-public class FilaOrden {
+public class FilaOrden implements java.io.Serializable {
     @Nullable
     private int orden;
     private int artículo;

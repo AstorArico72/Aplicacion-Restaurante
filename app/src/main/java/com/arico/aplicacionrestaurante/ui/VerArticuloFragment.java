@@ -1,5 +1,7 @@
 package com.arico.aplicacionrestaurante.ui;
 
+import static com.arico.aplicacionrestaurante.util.ClienteApi.UrlBase;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.arico.aplicacionrestaurante.databinding.FragmentVerArticuloBinding;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class VerArticuloFragment extends BottomSheetDialogFragment {
@@ -67,6 +70,7 @@ public class VerArticuloFragment extends BottomSheetDialogFragment {
         }
 
         binder.PrecioVArticulo.setText("$" + item.getPrecio());
+        Glide.with(getActivity().getApplicationContext()).load (UrlBase + item.getUriFoto()).into (binder.FotoVArticulo);
 
         binder.SumarArticulo.setOnClickListener(new View.OnClickListener() {
             @Override
