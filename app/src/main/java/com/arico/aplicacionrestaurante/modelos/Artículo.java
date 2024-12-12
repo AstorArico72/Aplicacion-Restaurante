@@ -1,6 +1,8 @@
 package com.arico.aplicacionrestaurante.modelos;
 
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 public class Artículo implements java.io.Serializable {
@@ -17,6 +19,7 @@ public class Artículo implements java.io.Serializable {
         this.imagen = uriFoto;
     }
 
+    @Nullable
     private List<String> atributos;
 
     public List<String> getAtributos() {

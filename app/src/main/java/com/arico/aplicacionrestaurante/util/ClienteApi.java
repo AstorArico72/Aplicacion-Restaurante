@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.arico.aplicacionrestaurante.R;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
 import com.arico.aplicacionrestaurante.modelos.FilaOrden;
 import com.google.gson.Gson;
@@ -92,6 +93,8 @@ public class ClienteApi {
          */
         @GET("Conectarse/ConexionCliente")
         Call<String> HabilitarMesa (@Nullable @Header("Authorization") String token);
+        @GET("Conectarse/ConseguirIdMesa")
+        Call<Integer> ConseguirId (@Header("Authorization") String token);
 
         /**
          * Ésto trae todos los artículos del menú, para poder mostrarlos en la aplicación.

@@ -13,6 +13,7 @@ import com.arico.aplicacionrestaurante.modelos.FilaOrden;
 import com.arico.aplicacionrestaurante.util.ClienteApi;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,6 +26,14 @@ public class MainViewModel extends androidx.lifecycle.AndroidViewModel {
     @Nullable
     public static MutableLiveData <List<FilaOrden>> Orden;
     public static MutableLiveData <FilaOrden> FilaNueva;
+    public MutableLiveData<Integer> IdMesa;
+
+    public MutableLiveData<Integer> getIdMesa() {
+        if (IdMesa == null) {
+            IdMesa = new MutableLiveData<>();
+        }
+        return IdMesa;
+    }
 
     public static MutableLiveData<FilaOrden> getNuevaFila() {
         if (FilaNueva == null) {
@@ -71,10 +80,32 @@ public class MainViewModel extends androidx.lifecycle.AndroidViewModel {
                 Log.i ("RespuestaHTTP", response.toString());
                 if (response.code() == 200) {
                     ClienteApi.GuardarToken("Bearer " + response.body(), ContextoAplicacion);
+                    Toast.makeText(ContextoAplicacion, "Token de acceso generado. Reinicia la aplicación.", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
+                Toast.makeText(ContextoAplicacion, "Error con la conexión: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                throw new RuntimeException(throwable);
+            }
+        });
+    }
+
+    public void ConseguirIdMesa () throws IOException {
+        ClienteApi.InterfazApi api = ClienteApi.ConseguirApi();
+        String token = ClienteApi.LeerToken(ContextoAplicacion);
+        Call<Integer> llamada = api.ConseguirId(token);
+        llamada.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                Log.i("RespuestaHTTP", response.body().toString());
+                if (response.code() == 200) {
+                    getIdMesa().postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable throwable) {
                 throw new RuntimeException(throwable);
             }
         });

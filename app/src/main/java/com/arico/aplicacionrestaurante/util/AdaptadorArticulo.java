@@ -44,16 +44,11 @@ public class AdaptadorArticulo extends RecyclerView.Adapter <AdaptadorArticulo.H
             Artículo item = Menu.get(position);
             holder.NombreArticulo.setText(item.getNombre());
             holder.PrecioArticulo.setText("$" + item.getPrecio());
-            if (!item.getAtributos().isEmpty()) {
-                for (int i = 0; i < item.getAtributos().size(); i++) {
-                    if (i == item.getAtributos().size() -1 || item.getAtributos().size() == 1) {
-                        holder.AtributosArticulo.append(item.getAtributos().get(i) + ".");
-                        break;
-                    }
-                    holder.AtributosArticulo.append(item.getAtributos().get(i) + ", ");
-                }
+            if (item.getAtributos() != null) {
+                String atributos = String.join (", ", item.getAtributos());
+                holder.AtributosArticulo.setText(atributos);
             } else {
-                holder.AtributosArticulo.append("");
+                holder.AtributosArticulo.setText("");
             }
             Glide.with(ContextoAplicacion).load (UrlBase + item.getUriFoto()).into (holder.FotoArticulo);
             holder.TarjetaArticulo.setOnClickListener(new View.OnClickListener() {

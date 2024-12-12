@@ -3,33 +3,28 @@ package com.arico.aplicacionrestaurante.ui;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arico.aplicacionrestaurante.R;
 import com.arico.aplicacionrestaurante.modelos.Artículo;
 import com.arico.aplicacionrestaurante.databinding.ActivityMainBinding;
 import com.arico.aplicacionrestaurante.modelos.FilaOrden;
 import com.arico.aplicacionrestaurante.util.AdaptadorArticulo;
-import com.arico.aplicacionrestaurante.util.ClienteApi;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binder;
@@ -44,13 +39,27 @@ public class MainActivity extends AppCompatActivity {
         this.ContextoAplicacion = getApplicationContext();
         SolicitarPermisos();
         ViewModel.Conectarse();
+
+        ViewModel.getIdMesa().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Toolbar barra = binder.toolbar;
+                setSupportActionBar(barra);
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                setTitle("Mesa #" + integer);
+            }
+        });
+        try {
+            ViewModel.ConseguirIdMesa();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         CargarMenu(null);
         if (MainViewModel.LeerOrden().getValue() != null && MainViewModel.getNuevaFila().getValue() != null) {
             MainViewModel.LeerOrden().getValue().clear();
             MainViewModel.getNuevaFila().setValue(null);
         }
         MainViewModel.ConseguirImporte().setValue(0);
-
         ViewModel.ConseguirArticulos().observe(this, new Observer<List<Artículo>>() {
             @Override
             public void onChanged(List<Artículo> artículos) {
@@ -61,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         MainViewModel.getNuevaFila().observe(this, new Observer<FilaOrden>() {
             @Override
             public void onChanged(FilaOrden filaOrden) {
-                List <FilaOrden> orden = MainViewModel.LeerOrden().getValue();
+                List<FilaOrden> orden = MainViewModel.LeerOrden().getValue();
                 if (orden == null) {
                     orden = new ArrayList<>();
                 }

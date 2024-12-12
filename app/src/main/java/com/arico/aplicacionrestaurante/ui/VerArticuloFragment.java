@@ -33,39 +33,41 @@ public class VerArticuloFragment extends BottomSheetDialogFragment {
         this.binder = FragmentVerArticuloBinding.inflate(inflater);
         this.ViewModel = new ViewModelProvider(this).get(VerViewModel.class);
         binder.NombreVArticulo.setText(item.getNombre());
-        for (int i = 0; i < item.getAtributos().size(); i++) {
-            switch (item.getAtributos().get(i)) {
-                case "Vegano": {
-                    binder.AtributosVArticulo.append("Apto para veganos");
-                    if (i < item.getAtributos().size() -1 && item.getAtributos().size() != 1) {
-                        binder.AtributosVArticulo.append(", ");
+        if (item.getAtributos() != null) {
+            for (int i = 0; i < item.getAtributos().size(); i++) {
+                switch (item.getAtributos().get(i)) {
+                    case "Vegano": {
+                        binder.AtributosVArticulo.append("Apto para veganos");
+                        if (i < item.getAtributos().size() - 1 && item.getAtributos().size() != 1) {
+                            binder.AtributosVArticulo.append(", ");
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Kosher": {
-                    binder.AtributosVArticulo.append("Certificado Kosher");
-                    if (i < item.getAtributos().size() -1 && item.getAtributos().size() != 1) {
-                        binder.AtributosVArticulo.append(", ");
+                    case "Kosher": {
+                        binder.AtributosVArticulo.append("Certificado Kosher");
+                        if (i < item.getAtributos().size() - 1 && item.getAtributos().size() != 1) {
+                            binder.AtributosVArticulo.append(", ");
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Halal": {
-                    binder.AtributosVArticulo.append("Certificado Halal");
-                    if (i < item.getAtributos().size() -1 && item.getAtributos().size() != 1) {
-                        binder.AtributosVArticulo.append(", ");
+                    case "Halal": {
+                        binder.AtributosVArticulo.append("Certificado Halal");
+                        if (i < item.getAtributos().size() - 1 && item.getAtributos().size() != 1) {
+                            binder.AtributosVArticulo.append(", ");
+                        }
+                        break;
                     }
-                    break;
-                }
-                default: {
-                    binder.AtributosVArticulo.append("Contiene " + item.getAtributos().get(i));
-                    if (i < item.getAtributos().size() -1 && item.getAtributos().size() != 1) {
-                        binder.AtributosVArticulo.append(", ");
+                    default: {
+                        binder.AtributosVArticulo.append("Contiene " + item.getAtributos().get(i));
+                        if (i < item.getAtributos().size() - 1 && item.getAtributos().size() != 1) {
+                            binder.AtributosVArticulo.append(", ");
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
-            if (i == item.getAtributos().size() -1) {
-                binder.AtributosVArticulo.append(".");
+                if (i == item.getAtributos().size() - 1) {
+                    binder.AtributosVArticulo.append(".");
+                }
             }
         }
 
