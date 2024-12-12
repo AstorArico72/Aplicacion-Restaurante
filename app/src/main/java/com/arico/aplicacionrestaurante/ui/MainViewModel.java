@@ -98,7 +98,6 @@ public class MainViewModel extends androidx.lifecycle.AndroidViewModel {
         llamada.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                Log.i("RespuestaHTTP", response.body().toString());
                 if (response.code() == 200) {
                     getIdMesa().postValue(response.body());
                 }
